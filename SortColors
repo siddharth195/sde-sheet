@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) { // idea => keep all one's together if 0 move it to start if 2 move it to end
+        int mid = 0;
+        int start =0;
+        int end = nums.size()-1;
+
+        // [0,1se,2m] 
+
+        while(end>=mid)
+        {
+            switch(nums[mid])
+            {
+                case 0: 
+                   swap(nums[mid],nums[start]);
+                   mid++;
+                   start++;
+                   break;
+                case 1: 
+                    mid++;
+                    break;
+                case 2:
+                    swap(nums[mid],nums[end]);
+                    end--;
+                    break;
+            }
+        }
+    }
+};
