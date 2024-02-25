@@ -1,0 +1,60 @@
+Question => 
+https://leetcode.com/problems/rotate-image/description/
+
+Solution 1 (Brute force)
+
+class Solution {
+public:
+    /* 
+    ij  j(n-1-i)
+    00  03 
+    01  13
+    02  23
+    03  33
+    ij  j(n-1-i)
+    10  02 
+    11  12
+    12  22
+    13  32
+
+    ij j(n-1-i)
+    20  01
+    21  11
+    22  21
+    23  31
+
+    O(n2)
+    O(n2)
+
+
+    
+    */
+
+    void rotate(vector<vector<int>>& matrix) {
+        int n = matrix.size();
+
+        vector<vector<int>> rotated_matrix( n , vector<int> (n)); 
+
+        for(int i=0;i<matrix.size();i++)
+        {
+            for(int j=0;j<matrix[i].size();j++)
+            {
+                rotated_matrix[j][n-1-i]=matrix[i][j];
+            }
+        }
+
+        //cout matrix
+
+        for(int i=0;i<matrix.size();i++)
+        {
+            for(int j=0;j<matrix[i].size();j++)
+            {
+                matrix[i][j]= rotated_matrix[i][j];
+            }
+        }
+
+        
+
+
+    }
+};
