@@ -1,0 +1,57 @@
+Question link
+https://leetcode.com/problems/merge-intervals/description/
+
+Solution (using pq)
+class Solution {
+    typedef pair<int,int> pp;
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        int n = intervals.size();
+        vector<vector<int>> v;
+        priority_queue <pp, vector<pp>, greater<pp> > pq; 
+        for(int i=0;i<n;i++)
+        {
+            pq.push(make_pair(intervals[i][0],intervals[i][1]));
+        }
+
+        bool flag= false;
+        int i=0;
+        while(!pq.empty())
+        {
+            pp x = pq.top();
+            pq.pop();
+            if(pq.empty())
+            {
+                flag = true; 
+                break;   
+            }
+            pp y = pq.top();
+            pq.pop();
+            if (x.second >= y.first)
+            {
+                if(y.second>=x.second)
+                    pq.push(make_pair(x.first,y.second));
+                else
+                    pq.push(make_pair(x.first,x.second));
+            }
+
+            else if(x.second < y.first)
+            {
+                pq.push(y);
+                vector<int> v1;
+                v1.push_back(x.first);
+                v1.push_back(x.second);
+                v.push_back(v1);
+            }
+        }
+
+        if(flag)
+        {
+            vector<int> v1;
+            v1.push_back(pq.top().first);
+            v1.push_back(pq.top().second);
+            v.push_back(v1);
+        }
+        return v;
+    }
+};
