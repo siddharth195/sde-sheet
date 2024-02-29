@@ -4,6 +4,56 @@ https://www.codingninjas.com/studio/problems/number-of-inversions_6840276?utm_so
 
 Optimal Solution
 
+int merge(vector<int>&a, int low , int mid , int high)
+{
+    int temp1 = low; 
+    int temp2 = mid+1;
+
+    vector<int> v;
+    int cnt=0;
+
+
+    while((temp1 <= mid)&&(temp2<=high))
+    {
+        if(a[temp1]>a[temp2])
+        {
+            v.push_back(a[temp2]);
+
+            cnt += (mid - temp1 + 1);
+
+            temp2++;
+            
+
+        }
+        else if(a[temp1] == a[temp2])
+        {
+            v.push_back(a[temp1]);
+            temp1++;
+        }
+        else{
+            v.push_back(a[temp1]);
+            temp1++;
+        }
+    }
+
+    while(temp1<=mid)
+    {
+        v.push_back(a[temp1]);
+        temp1++;
+    }
+    while(temp2<=high)
+    {
+        v.push_back(a[temp2]);
+        temp2++;
+    }
+
+    for(int i=low;i<=high;i++)
+    {
+        a[i]=v[i-low];
+    }
+    return cnt;
+}
+
 int mergeSort(vector<int>&a , int low, int high)
 {   
     int cnt =0;
@@ -18,61 +68,7 @@ int mergeSort(vector<int>&a , int low, int high)
     cnt+=merge(a,low,mid,high);
 
     return cnt;
-
 }
-
-int merge(vector<int>&a, int low , int mid , int high)
-{
-    int temp1 = low; 
-    int temp2 = mid+1;
-
-    vector<int> v;
-    int cnt=0;
-    bool flag = true;
-
-    while((temp1 <= mid)&&(temp2<=high))
-    {
-        if(temp1>temp2)
-        {
-            v.push_back(temp2);
-            if (flag) {
-              cnt + = (mid - temp + 1);
-              flag = false;
-            }
-            temp2++;
-            
-
-        }
-        else if(temp1 == temp2)
-        {
-            v.push_back(temp1);
-            temp1++;
-        }
-        else{
-            v.push_back(temp1);
-            temp1++;
-        }
-    }
-
-    while(temp1<=mid)
-    {
-        v.push_back(temp1);
-        temp1++;
-    }
-    while(temp2<=high)
-    {
-        v.push_back(temp2);
-        temp2++;
-    }
-
-    for(int i=0;i<v.size();i++)
-    {
-        a[low-i]=v[i];
-    }
-}
-
-
-
 
 int numberOfInversions(vector<int>&a, int n) {
     // Write your code here.
