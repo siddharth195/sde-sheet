@@ -1,0 +1,39 @@
+Question => 
+https://leetcode.com/problems/powx-n/description/
+
+class Solution {
+    public:
+        double myPow(double x, int n) {
+            double result = 1;
+            bool flag= false;
+            if(n<0)
+            {
+                flag = true;
+            }
+            while(n!=0 )
+            {
+                if(n%2==0)
+                {
+                    x=x*x;
+                    n=n/2;
+                }
+                else 
+                {
+                    result = result*x;
+                    if(n<0)
+                    {
+                        n++;
+                    }
+                    else{
+                    n=n-1;
+                    }
+                }
+            }
+            if (flag)
+            {
+                return 1/result;
+            }
+            return result;
+            
+        }
+    };
